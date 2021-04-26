@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AppuntiUniversitari</string>
+    <string name="title_calendar">Calendario</string>
+    <string name="title_notes">Note</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="titolo_del_corso"><b>Titolo del corso</b></string>
+    <string name="course_title"><b>Note Materia</b></string>
+    <string name="chiudi_button">Chiudi</string>
+    <string name="modifica_button">Modifica</string>
+</resources>
