@@ -1,13 +1,19 @@
 package com.example.appuntiuniversitari.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.appuntiuniversitari.NoteActivity
 import com.example.appuntiuniversitari.R
 import com.example.appuntiuniversitari.databinding.LayoutRawRecyclerBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 // , private val context: Context?
 //class RecyAdapter(private val titles : Array<String> , private val context: Context?) : RecyclerView.Adapter<RecyAdapter.ViewHolder>() {
@@ -28,7 +34,7 @@ import com.example.appuntiuniversitari.databinding.LayoutRawRecyclerBinding
 //
 //}
 
-class RecyAdapter(private val titles : Array<String> , private val context: Context?) : RecyclerView.Adapter<RecyAdapter.Courses>() {
+class RecyAdapter(private val titles : ArrayList<String> , private val context: Context?) : RecyclerView.Adapter<RecyAdapter.Courses>() {
 
     inner class Courses(val binding : LayoutRawRecyclerBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -38,6 +44,12 @@ class RecyAdapter(private val titles : Array<String> , private val context: Cont
 
     override fun onBindViewHolder(holder: Courses, position: Int) {
         holder.binding.courseTitle.text = titles[position]
+        holder.binding.courseTitle.setOnClickListener {
+//            holder.binding.courseTitle.text = "mi hai premuto"
+            val intent = Intent(context, NoteActivity::class.java)
+            intent.putExtra("materia",holder.binding.courseTitle.text.toString())
+            context?.startActivity(intent)
+        }
     }
 
     override fun getItemCount() = titles.size

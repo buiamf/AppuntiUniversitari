@@ -7,4 +7,6 @@
     <string name="course_title"><b>Note Materia</b></string>
     <string name="chiudi_button">Chiudi</string>
     <string name="modifica_button">Modifica</string>
+    <string name="string_lezioni_giornaliere"><b>Lezioni giornaliere</b></string>
+    <string name="corsi_semestre_attuale"><b>Corsi semestre attuale</b></string>
 </resources>

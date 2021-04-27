@@ -7,6 +7,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.appuntiuniversitari.database.AppDatabase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 

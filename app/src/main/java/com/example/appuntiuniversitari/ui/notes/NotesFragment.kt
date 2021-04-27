@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appuntiuniversitari.R
 import com.example.appuntiuniversitari.adapters.RecyAdapter
+import com.example.appuntiuniversitari.database.AppDatabase
 import com.example.appuntiuniversitari.databinding.FragmentCalendarBinding
 import com.example.appuntiuniversitari.databinding.FragmentNotesBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class NotesFragment : Fragment() {
 
@@ -35,11 +38,17 @@ class NotesFragment : Fragment() {
 
         val binding = FragmentNotesBinding.inflate(layoutInflater)
 
-        binding.recyCourses.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = RecyAdapter(arrayOf("Materia 1","Materia 2","Materia 3"), requireContext())
+        binding.recyCourses.setHasFixedSize(true)
+        binding.recyCourses.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        GlobalScope.launch {
+            val db = AppDatabase.getDatabase(requireContext())
+            val mater = db.courseDao().getAllCoursesNames()
+            val materie : ArrayList<String> = mater.toCollection(ArrayList<String>())
+            binding.recyCourses.adapter = RecyAdapter(materie, requireContext())
+//            binding.recyCourses.adapter = RecyAdapter(arrayListOf("Materia 1","Materia 2","Materia 3"), requireContext())
         }
+
 
 //        binding.recyCourses.setHasFixedSize(true)
 //        binding.recyCourses.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

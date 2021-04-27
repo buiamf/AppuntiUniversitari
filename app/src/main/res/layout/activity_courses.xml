@@ -4,31 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.notes.NotesFragment">
+    tools:context=".CoursesActivity">
 
     <TextView
-        android:id="@+id/tutti_i_corsi"
+        android:id="@+id/lezioni_giornaliere"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         android:background="#FFEB3B"
-        android:text="@string/corsi_semestre_attuale"
+        android:text="@string/string_lezioni_giornaliere"
         android:textAlignment="center"
-        android:textColor="@color/black"
         android:textSize="22dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recy_courses"
+        android:id="@+id/recy_notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lezioni_giornaliere"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tutti_i_corsi"
-        tools:listitem="@layout/layout_raw_recycler" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        tools:listitem="@layout/layout_raw_recycler"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
