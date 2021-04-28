@@ -27,6 +27,7 @@ class NotesFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        /*
 //        dashboardViewModel =
 //                ViewModelProvider(this).get(NotesViewModel::class.java)
 //        val root = inflater.inflate(R.layout.fragment_notes, container, false)
@@ -34,7 +35,7 @@ class NotesFragment : Fragment() {
 //        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
 //        })
-
+*/
 
         val binding = FragmentNotesBinding.inflate(layoutInflater)
 
@@ -49,7 +50,7 @@ class NotesFragment : Fragment() {
 //            binding.recyCourses.adapter = RecyAdapter(arrayListOf("Materia 1","Materia 2","Materia 3"), requireContext())
         }
 
-
+/*
 //        binding.recyCourses.setHasFixedSize(true)
 //        binding.recyCourses.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 //        binding.recyCourses.adapter = RecyAdapter(arrayOf("Materia 1","Materia 2","Materia 3"), requireContext())
@@ -78,7 +79,7 @@ class NotesFragment : Fragment() {
 //        val recyclerView = findViewById<View>(R.id.recy_courses) as RecyclerView
 //        val recyclerView = RecyAdapter(arrayOf("Materia 1","Materia 2","Materia 3"))
 //        val layoutManager = LinearLayoutManager
-
+*/
 
 
 

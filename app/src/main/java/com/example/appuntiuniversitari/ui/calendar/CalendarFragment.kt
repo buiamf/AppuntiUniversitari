@@ -27,6 +27,7 @@ class CalendarFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        /*
 //        homeViewModel =
 //                ViewModelProvider(this).get(CalendarViewModel::class.java)
 //        val root = inflater.inflate(R.layout.fragment_calendar, container, false)
@@ -34,23 +35,24 @@ class CalendarFragment : Fragment() {
 //        homeViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
 //        })
+*/
 
 
-        var calendar: List<Calendario>
+//        var calendar: List<Calendario>
         GlobalScope.launch {
             val db = AppDatabase.getDatabase(requireContext())
-            calendar = db.calendarDao().getCalendar()
+//            calendar = db.calendarDao().getCalendar()
+            db.calendarDao().getCalendar()
         }
+
+
         val binding = FragmentCalendarBinding.inflate(layoutInflater)
         binding.semesterCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             val intent = Intent(requireContext(),CoursesActivity::class.java)
-            intent.putExtra("giorno_della_settimana","$dayOfMonth/$month")
+            intent.putExtra("giorno_della_settimana","$dayOfMonth/${month+1}")
             startActivity(intent)
 //            Toast.makeText(requireContext(), "year: $year, month: $month, day: $dayOfMonth", Toast.LENGTH_SHORT).show()
         }
-
-
-
         return binding.root
     }
 }

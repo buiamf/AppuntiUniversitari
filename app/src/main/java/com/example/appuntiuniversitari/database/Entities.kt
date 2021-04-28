@@ -33,5 +33,5 @@ data class Corso(
 data class Nota(
     @PrimaryKey/*(autoGenerate = true)*/ val nota_id: Int,
     val corso_id: Int,
-    val corpo: String
+    var corpo: String
 )

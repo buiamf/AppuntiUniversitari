@@ -55,18 +55,17 @@ abstract class AppDatabase : RoomDatabase() {
         fun populateDatabase(calendarDao: CalendarDao, courseDao: CourseDao, notesDao: NotesDao) {
             calendarDao.deleteAll()
             courseDao.deleteAll()
-            notesDao.deleteAll()
 
             calendarDao.insert(
-                Calendario(1,1,"2021/05/26"),
-                Calendario(2,2,"2021/05/26"),
-                Calendario(3,3,"2021/05/26"),
-                Calendario(5,4,"2021/05/27"),
-                Calendario(6,2,"2021/05/28"),
-                Calendario(7,4,"2021/05/28"),
-                Calendario(8,3,"2021/05/29"),
-                Calendario(9,2,"2021/05/29"),
-                Calendario(10,1,"2021/05/30")
+                Calendario(1,1,"2021/04/26"),
+                Calendario(2,2,"2021/04/26"),
+                Calendario(3,3,"2021/04/26"),
+                Calendario(5,4,"2021/04/27"),
+                Calendario(6,2,"2021/04/28"),
+                Calendario(7,4,"2021/04/28"),
+                Calendario(8,3,"2021/04/29"),
+                Calendario(9,2,"2021/04/29"),
+                Calendario(10,1,"2021/04/30")
             )
 
             courseDao.insert(
@@ -76,12 +75,15 @@ abstract class AppDatabase : RoomDatabase() {
                 Corso(4,"Inglese","Campino")
             )
 
-            notesDao.insert(
-                Nota(1,1,"Note di analisi:"),
-                Nota(2,2,"Note di fisica:"),
-                Nota(3,3,"Note di informatica:"),
-                Nota(4,4,"Note di inglese:")
-            )
+            if (notesDao.getAllNotes().isEmpty()) {
+                notesDao.deleteAll()
+                notesDao.insert(
+                    Nota(1, 1, "Note di analisi:"),
+                    Nota(2, 2, "Note di fisica:"),
+                    Nota(3, 3, "Note di informatica:"),
+                    Nota(4, 4, "Note di inglese:")
+                )
+            }
         }
 
     }

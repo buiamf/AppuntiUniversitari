@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import com.example.appuntiuniversitari.adapters.RecyAdapter
 import com.example.appuntiuniversitari.database.AppDatabase
 import com.example.appuntiuniversitari.database.Corso
@@ -26,12 +29,13 @@ class NoteActivity : AppCompatActivity() {
         binding.titleCourse.text = "Note di $materia"
 //        Log.d("TEST MATERIA: ", materia!!)
         if (materia != null) {
+
             GlobalScope.launch {
                 val db = AppDatabase.getDatabase(this@NoteActivity)
 
-                val corsi = db.courseDao().getAllCourses()
-                val idCorso = getCorsoId(corsi, materia)
 
+
+                /*
 //                for (corso in corsi) {
 //                    if (corso.corso_name == materia)
 //                        idCorso = corso.corso_id
@@ -48,10 +52,25 @@ class NoteActivity : AppCompatActivity() {
 ////                    Log.d("TEST MATERIA ID: ", "materiaid nullo")
 //                    binding.noteCourse.setText("materiaid nullo")
 //                }
+*/
 
+                val corsi = db.courseDao().getAllCourses()
+                val idCorso = getCorsoId(corsi, materia)
                 val note = db.notesDao().getAllNotes()
-                binding.noteCourse.setText(getNote(note,idCorso))
+                val notaMateria = getNote(note,idCorso)
+
 //                binding.noteCourse.setText(db.notesDao().getCourseNotes(idCorso.toString()))
+
+                if (notaMateria != null) {
+                    binding.buttonEditSave.setOnClickListener {
+                        modifyNote(
+                            binding.buttonEditSave,
+                            binding.noteCourse.text.toString(),
+                            notaMateria
+                        )
+                    }
+                    binding.noteCourse.setText(notaMateria.corpo)
+                }
             }
         }
         else {
@@ -59,7 +78,8 @@ class NoteActivity : AppCompatActivity() {
         }
 
         binding.buttonClose.setOnClickListener { startActivity(Intent(this,MainActivity::class.java)) }
-        binding.buttonEditSave.setOnClickListener { modifyNote(binding.buttonEditSave) }
+//        binding.noteCourse.setOnKeyListener { binding.buttonEditSave.text = "Salva Modifiche!"}
+//        binding.buttonEditSave.setOnClickListener { modifyNote(binding.buttonEditSave, binding.noteCourse, notaMateria) }
 
 
 
@@ -68,15 +88,26 @@ class NoteActivity : AppCompatActivity() {
 
     }
 
-    private fun modifyNote(button: Button) {
-        if (button.text == "Modifica") {
+    private fun modifyNote(button: Button, corpo : String, nota: Nota) {
+
+        /*if (button.text != "Salva") {
             button.text = "Salva"
 
         }
-        else {
-            button.text = "Modifica"
 
+//        val db = AppDatabase.getDatabase(this@NoteActivity)
+//        val notaModificata = nota
+//        notaModificata.corpo = corpo.toString()
+//        db.notesDao().updateNotes(notaModificata)
+*/
+
+        GlobalScope.launch {
+            val db = AppDatabase.getDatabase(this@NoteActivity)
+            val notaModificata = nota
+            notaModificata.corpo = corpo
+            db.notesDao().updateNotes(notaModificata)
         }
+        Toast.makeText(this, "Note Salvate!", Toast.LENGTH_SHORT).show()
 
     }
 
@@ -87,11 +118,22 @@ class NoteActivity : AppCompatActivity() {
         }
         return 0
     }
-    private fun getNote(note : List<Nota>, idCorso: Int) : String {
+
+    private fun getNote(note : List<Nota>, idCorso: Int) : Nota? {
         for (nota in note) {
             if (nota.corso_id == idCorso)
-                return nota.corpo
+                return nota
         }
-        return "nessun appunto trovato"
+        return null
     }
+
+    /*
+//    private fun getNoteBody(note : List<Nota>, idCorso: Int) : String {
+//        for (nota in note) {
+//            if (nota.corso_id == idCorso)
+//                return nota.corpo
+//        }
+//        return "nessun appunto trovato"
+//    }
+*/
 }

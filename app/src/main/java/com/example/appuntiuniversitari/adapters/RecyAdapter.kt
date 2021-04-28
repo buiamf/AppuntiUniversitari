@@ -44,11 +44,14 @@ class RecyAdapter(private val titles : ArrayList<String> , private val context: 
 
     override fun onBindViewHolder(holder: Courses, position: Int) {
         holder.binding.courseTitle.text = titles[position]
-        holder.binding.courseTitle.setOnClickListener {
+
+        if (holder.binding.courseTitle.text != "NESSUNA LEZIONE PER LA GIORNATA ODIERNA") {
+            holder.binding.courseTitle.setOnClickListener {
 //            holder.binding.courseTitle.text = "mi hai premuto"
-            val intent = Intent(context, NoteActivity::class.java)
-            intent.putExtra("materia",holder.binding.courseTitle.text.toString())
-            context?.startActivity(intent)
+                val intent = Intent(context, NoteActivity::class.java)
+                intent.putExtra("materia", holder.binding.courseTitle.text.toString())
+                context?.startActivity(intent)
+            }
         }
     }
 
