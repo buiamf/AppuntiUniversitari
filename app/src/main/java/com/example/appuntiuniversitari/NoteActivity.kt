@@ -3,7 +3,10 @@ package com.example.appuntiuniversitari
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -26,7 +29,8 @@ class NoteActivity : AppCompatActivity() {
 
         val binding = ActivityNoteBinding.inflate(layoutInflater)
 
-        binding.titleCourse.text = "Note di $materia"
+//        binding.titleCourse.text = "Note di $materia"
+        setTitle("Note di $materia")
 //        Log.d("TEST MATERIA: ", materia!!)
         if (materia != null) {
 
@@ -71,6 +75,21 @@ class NoteActivity : AppCompatActivity() {
                     }
                     binding.noteCourse.setText(notaMateria.corpo)
                 }
+
+                // editText listener
+                binding.noteCourse.addTextChangedListener(object: TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {
+                    }
+
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    }
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        binding.buttonEditSave.text = "Salva Modifiche!"
+                    }
+                })
+
+
             }
         }
         else {
@@ -78,8 +97,27 @@ class NoteActivity : AppCompatActivity() {
         }
 
         binding.buttonClose.setOnClickListener { startActivity(Intent(this,MainActivity::class.java)) }
-//        binding.noteCourse.setOnKeyListener { binding.buttonEditSave.text = "Salva Modifiche!"}
 //        binding.buttonEditSave.setOnClickListener { modifyNote(binding.buttonEditSave, binding.noteCourse, notaMateria) }
+        binding.minimizeText.setOnClickListener {
+//            Log.d("TEST TEXT SIZE before",binding.noteCourse.textSize.toString() )
+            val px = binding.noteCourse.textSize
+            if (px > 42) {
+                val sp = px / this.resources.displayMetrics.scaledDensity
+//            Log.d("TEST TEXT SIZE px",px.toString() )
+//            Log.d("TEST TEXT SIZE sp",sp.toString() )
+                binding.noteCourse.setTextSize(TypedValue.COMPLEX_UNIT_SP, (sp - 1.00F))
+            }
+//            Log.d("TEST TEXT SIZE after",binding.noteCourse.textSize.toString() )
+            }
+
+        binding.maximizeText.setOnClickListener {
+            val px = binding.noteCourse.textSize
+            if (px < 132) {
+                val sp = px / this.resources.displayMetrics.scaledDensity
+                binding.noteCourse.setTextSize(TypedValue.COMPLEX_UNIT_SP, (sp + 1.00F))
+            }
+//            Log.d("TEST TEXT SIZE after",binding.noteCourse.textSize.toString() )
+        }
 
 
 
@@ -90,24 +128,25 @@ class NoteActivity : AppCompatActivity() {
 
     private fun modifyNote(button: Button, corpo : String, nota: Nota) {
 
-        /*if (button.text != "Salva") {
-            button.text = "Salva"
-
-        }
-
+        /*
 //        val db = AppDatabase.getDatabase(this@NoteActivity)
 //        val notaModificata = nota
 //        notaModificata.corpo = corpo.toString()
 //        db.notesDao().updateNotes(notaModificata)
 */
 
-        GlobalScope.launch {
-            val db = AppDatabase.getDatabase(this@NoteActivity)
-            val notaModificata = nota
-            notaModificata.corpo = corpo
-            db.notesDao().updateNotes(notaModificata)
+        if (button.text != "Salva") {
+            button.text = "Salva"
+
+            GlobalScope.launch {
+                val db = AppDatabase.getDatabase(this@NoteActivity)
+                val notaModificata = nota
+                notaModificata.corpo = corpo
+                db.notesDao().updateNotes(notaModificata)
+            }
+            Toast.makeText(this, "Note Salvate!", Toast.LENGTH_SHORT).show()
         }
-        Toast.makeText(this, "Note Salvate!", Toast.LENGTH_SHORT).show()
+
 
     }
 

@@ -4,21 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FF9800"
     tools:context=".ui.calendar.CalendarFragment">
 
-    <CalendarView
+    <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/semester_calendar"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
 
-        android:firstDayOfWeek="2"
-        android:theme="@style/CalenderViewCustom"
-
+        app:abbreviationsBarColor="@color/purple_500"
+        app:abbreviationsLabelsColor="@color/white"
+        app:headerColor="#FF9800"
+        app:highlightedDaysLabelsColor="#FF5722"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:pagesColor="#FFC107" />
+
+
+    <!-- <CalendarView
+         android:id="@+id/semester_calendar"
+
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="50dp"
+
+         android:firstDayOfWeek="2"
+         android:theme="@style/CalenderViewCustom"
+
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.0"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

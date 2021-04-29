@@ -26,12 +26,13 @@ class CoursesActivity : AppCompatActivity() {
             mese = "0$mese"
         if (giorno?.length!! < 2)
             giorno = "0$giorno"
-        Log.d("TEST GIORNO E MESE","giorno: $giorno, mese: $mese")
+//        Log.d("TEST GIORNO E MESE","giorno: $giorno, mese: $mese")
 //        var corsi: ArrayList<String>? = null
 
 
         val binding = ActivityCoursesBinding.inflate(layoutInflater)
         binding.lezioniGiornaliere.text = "Lezioni giornaliere ($giornoMese)"
+//        binding.lezioniGiornaliere.font
         binding.recyNotes.setHasFixedSize(true)
         binding.recyNotes.layoutManager = LinearLayoutManager(this)
 
